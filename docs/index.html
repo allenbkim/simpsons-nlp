@@ -1,9 +1,313 @@
 <!DOCTYPE html>
 <html lang="en" >
   <head>
-
+    <title>The Simpsons: In Their Own Words</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <style type="text/css">
+      body {
+        width:800px;
+        background-image:url('img/bg.jpg');
+        background-size:100%;
+        background-repeat:no-repeat;
+        background-color:rgb(155, 218, 251);
+        margin:0 auto;
+        font-family:'Roboto', sans-serif;
+      }
+      #title {
+        width:800px;
+        margin-top:50px;
+      }
+      table {
+        border:1px solid;
+        border-collapse:collapse;
+      }
+      th {
+        text-align:left;
+        border:1px solid;
+      }
+      td {
+        vertical-align:top;
+        border:1px solid;
+      }
+      #heading {
+        color:yellow;
+      }
+    </style>
   </head>
   <body>
-    <h1>The Simpsons in their Own Words</h1>
+    <img id="title" src="img/title.png" alt="The Simpsons: In Their Own Words" title="The Simpsons: In Their Own Words" />
+    <h2>Background</h2>
+    <div>
+      As part of my M.S. program at USC, I took a Data Mining course where we covered the text mining technique
+      <a href="https://en.wikipedia.org/wiki/Tf%E2%80%93idf" target="_blank">Term Frequency-Inverse Document Frequency</a>
+      (TF-IDF). I found it to be pretty neat, and since we didn't spend too much time on it during lecture nor implement it
+      in an assignment I thought it'd be fun to do something on my own. But what corpus of documents would I use?
+      <br/>
+      <br/>
+      My favorite TV show of all time, hands down, is <i>The Simpsons</i>. I started watching it as a young kid in the
+      early mid-90s and continued through its golden years. I was (am?) one of those people who references the jokes and
+      scenes whenever possible, whether appropriate or not. In some ways it's been a big part of my life, so of course
+      I'd do some hacky side project involving it.
+      <br />
+      <br />
+      I also had an upcoming gig with the USC Annenberg Norman Lear Center to create a searchable
+      <a href="https://github.com/allenbkim/nlc-script-database" target="_blank">TV show and movie script database</a>
+      that would require me to run some good ol' web scraping. I had not tried that out before so I figured this could
+      also be a good way to kill two birds with one stone. So, I now had the following goals:
+      <ul>
+        <li>Play around with TF-IDF</li>
+        <li>Involve <i>The Simpsons</i> in this side project</li>
+        <li>Explore web scraping</li>
+        <li>Think of other fun things to do with the data</li>
+      </ul>
+      And with that, I got started!
+    </div>
+    <h2>The Puzzle Pieces</h2>
+    <div>
+      I have been using Python for all my school assignments and other ML-related studying/side projects so I wanted
+      to continue with it. With some quick searching I came upon the
+      <a href="https://www.crummy.com/software/BeautifulSoup/" target="_blank">Beautiful Soup</a> Python library
+      for scraping data off the interwebs. For TF-IDF, I opted to use 
+      <a href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html" 
+      target="_blank">Scikit-Learn's</a> implementation. As you'll see later, I also began playing around with
+      <a href="https://www.nltk.org/" target="_blank">NLTK</a> libraries as well.
+      <br />
+      <br />
+      As for the dataset, I opted to go with episode scripts from
+      <a href="https://www.springfieldspringfield.co.uk/" target="_blank">Springfield! Springfield!</a> (<i>SS</i>)
+      as the corpus of documents. I also downloaded summaries from
+      <a href="https://www.pogdesign.co.uk/cat" target="_blank">TV Calendar</a> for comparison purposes.
+    </div>
+    <h2>The Scrapes of Wrath</h2>
+    <div>
+      Using Beautiful Soup to download scripts from <i>SS</i> was a breeze due to the library's
+      ease of use and how the site itself was hierarchically structured. I was able to systematically go through each
+      season and get the episode text, performing some basic text cleaning (normalize white spaces, remove weird
+      characters) and metadata extraction (season number, episode number, episode title) along the way. This data was
+      stored in a dictionary during runtime and pickled for later analysis.
+      <br />
+      <br />
+      <a href="https://github.com/allenbkim/simpsons-nlp/blob/master/Simpsons-NLP_scrape.ipynb" target="_blank">
+      Scraping source code</a>
+    </div>
+    <h2>Term Frequency, Meet Inverse Document Frequency</h2>
+    <div>
+      Now that I had the document corpus, I could start the analysis of scripts to find the most important words
+      from each episode in relation to the other episodes, and see how well those important words could describe
+      or summarize the episode, at least for <i>Simpsons</i> nerds.
+      <br />
+      <br />
+      Overall, I thought it did a pretty durn good job! The table below highlights how the results for a few select
+      favorites and the results in their entirety can be found
+      <a href="https://github.com/allenbkim/simpsons-nlp/blob/master/simpsons_scripts_summaries.txt" target="_blank">
+      here</a>.
+      <br />
+      <br />
+      <table>
+        <tr>
+          <th>Season</th>
+          <th>Episode</th>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>
+            <b>Title:</b> Homer at the Bat<br /><br />
+            <b>Summary:</b> The Springfield Nuclear Power Plant's softball team goes on a season long winning streak 
+            thanks to Homer's "Wunderbat." But with the pennant and a $1 million bet on the line Mr. Burns 
+            brings in 9 ringers from the professional baseball ranks and a disappointed Homer has to 
+            sit the bench.<br /><br />
+            <b>Top Words:</b> ['softball', 'strawberry', 'scioscia', 'bat', 'sax']<br /><br />
+          </td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>
+            <b>Title:</b> A Streetcar Named Marge<br /><br />
+            <b>Summary:</b> Marge gets a taste of the acting bug and decides to volunteer at the Springfield Community 
+            Center. She is cast as Blanche DuBois in a musical version of A Streetcar Named Desire directed by 
+            the flamboyant Llewellyn Sinclair. Meanwhile, Maggie squares off with her strict new daycare 
+            provider.<br /><br />
+            <b>Top Words:</b> ['blanche', 'stella', 'stanley', 'new orleans', 'orleans']<br /><br />
+          </td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>
+            <b>Title:</b> Last Exit to Springfield<br /><br />
+            <b>Summary:</b> Homer finds himself filling in for the Springfield Nuclear Power Plant's union leader 
+            when it comes time to negotiate their new contract with Mr. Burns. Homer is a tough negotiator, 
+            despite not knowing the first thing about union organizing, and forces Burns to accept the union's 
+            demands on the condition that Homer be removed as leader.<br /><br />
+            <b>Top Words:</b> ['dental plan', 'dental', 'braces', 'lisa needs', 'plan']<br /><br />
+          </td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>
+            <b>Title:</b> Homer Badman<br /><br />
+            <b>Summary:</b> Homer and Marge attend a candy convention and have to find a babysitter for the kids. 
+            After the convention, Homer gives the babysitter a ride home. He notices that there is a very 
+            rare gummy stuck to her bottom, so he reaches out and grabs it. Homer is accused of sexual 
+            harassment and the whole town is against him until Willie saves the day.<br /><br />
+            <b>Top Words:</b> ['gummi', 'venus', 'candy', 'babysitter', 'grabbed']<br /><br />
+          </td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>
+              <b>Title:</b> Lemon of Troy<br /><br />
+              <b>Summary:</b> The children of Springfield wage war on Shelbyville, after their beloved town lemon tree 
+              comes up missing. The fathers of Springfield take Ned's RV to search for their boys.<br /><br />
+              <b>Top Words:</b> ['shelbyville', 'lemon', 'tree', 'numerals', 'roman numerals']<br /><br />
+            </td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>
+            <b>Title:</b> El Viaje de Nuestro Jomer (The Mysterious Voyage of Homer)<br /><br />
+            <b>Summary:</b> Remembering last year, Marge tries to hide the big annual chili cook-off from Homer.
+            When he figures it out, she makes him promise not to drink any beer. Homer is known as the dude 
+            with the fireproof stomach and Chief Wiggum brews up some chili with Guatemalan insanity peppers, 
+            and it burns the hell out of Homer's mouth. He decides to put wax in his mouth, so he can eat 
+            the peppers whole. After eating a few, he begins hallucinating and Homer runs off into the 
+            sunset and experiencing a strange journey. The rest of the family leaves without him after 
+            he embarrasses them. On his journey, Homer meets a talking coyote who tells him to find his 
+            soul mate. He wakes up on a golf course and begins his search. Marge is upset with him, 
+            making him think it is not her. Homer ends up at a lighthouse, where Marge eventually finds 
+            him. Because she found him, he figures out that she IS his soul mate. A ship crashes at the 
+            lighthouse, leaving short shorts everywhere.<br /><br />
+            <b>Top Words:</b> ['soul mate', 'mate', 'chili', 'soul', 'coyote']<br /><br />
+          </td>
+        </tr>
+      </table>
+      <br />
+      <br />
+      <a href="https://github.com/allenbkim/simpsons-nlp/blob/master/Simpsons-NLP_TF-IDF.ipynb" target="_blank">
+      TF-IDF source code</a>
+    </div>
+    <h2>Episode Similarities</h2>
+    <div>
+      <table>
+        <tr>
+          <th>Rank</th>
+          <th>Jaccard Similarity</th>
+          <th>Cosine Similarity</th>
+        </tr>
+        <tr>
+          <td>
+            1
+          </td>
+          <td>
+
+          </td>
+          <td>
+
+          </td>
+        </tr>
+        <tr>
+          <td>
+            2
+          </td>
+          <td>
+
+          </td>
+          <td>
+            
+          </td>
+        </tr>
+        <tr>
+          <td>
+            3
+          </td>
+          <td>
+
+          </td>
+          <td>
+            
+          </td>
+        </tr>
+        <tr>
+          <td>
+            4
+          </td>
+          <td>
+
+          </td>
+          <td>
+            
+          </td>
+        </tr>
+        <tr>
+          <td>
+            5
+          </td>
+          <td>
+
+          </td>
+          <td>
+            
+          </td>
+        </tr>
+        <tr>
+          <td>
+            6
+          </td>
+          <td>
+
+          </td>
+          <td>
+            
+          </td>
+        </tr>
+        <tr>
+          <td>
+            7
+          </td>
+          <td>
+
+          </td>
+          <td>
+            
+          </td>
+        </tr>
+        <tr>
+          <td>
+            8
+          </td>
+          <td>
+
+          </td>
+          <td>
+            
+          </td>
+        </tr>
+        <tr>
+          <td>
+            9
+          </td>
+          <td>
+
+          </td>
+          <td>
+            
+          </td>
+        </tr>
+        <tr>
+          <td>
+            10
+          </td>
+          <td>
+
+          </td>
+          <td>
+            
+          </td>
+        </tr>
+      </table>
+      <br />
+      <br />
+      <a href="https://github.com/allenbkim/simpsons-nlp/blob/master/Simpsons-NLP_Episode-Similarities.ipynb" target="_blank">
+      Similarities source code</a>
+    </div>
   </body>
 </html>
