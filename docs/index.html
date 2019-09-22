@@ -32,6 +32,9 @@
       #heading {
         color:yellow;
       }
+      .sentiment-plot {
+        width:500px;
+      }
     </style>
   </head>
   <body>
@@ -183,7 +186,8 @@
       <br />
       <br />
       <a href="https://github.com/allenbkim/simpsons-nlp/blob/master/Simpsons-NLP_TF-IDF.ipynb" target="_blank">
-      TF-IDF source code</a>
+        TF-IDF source code
+      </a>
     </div>
     <h2>Episode Similarities</h2>
     <div>
@@ -434,10 +438,76 @@
       <br />
       <br />
       <a href="https://github.com/allenbkim/simpsons-nlp/blob/master/Simpsons-NLP_Episode-Similarities.ipynb" target="_blank">
-      Similarities source code</a>
+        Similarities source code
+      </a>
     </div>
-    <h2>Sentiment Analysis</h2>
+    <h2>Sentiment Analysis - Sneak Peak</h2>
+    <div>
+      One popular application of NLP is <a href="https://en.wikipedia.org/wiki/Sentiment_analysis" target="_blank">
+      sentiment analysis</a> to classify a piece of text as positive or negative on a scale of -1.0 to 1.0. I've
+      mostly seen this done in areas such as social media posts and product reviews, but I came upon an interesting
+      paper that classified stories into <a href="https://arxiv.org/pdf/1606.07772.pdf" target="_blank">emotional arcs</a>
+      and wanted to apply similar techniques to <i>Simpsons</i> episodes. Using the NLTK library, I sliced up the scripts
+      and performed a "sliding window" approach similar to what's described in the paper and retrieved sentiment scores
+      for each section, then plotted them with matplotlib. The plots below are for the episode "The Boy Who Knew Too Much"
+      from Season 5.
+      <br />
+      <br />
+      First, we have the plot of raw sentiment scores for each window of text:
+      <img src="img/sentiment - raw.png" alt="Episode sentiment scores raw" title="Episode sentiment scores raw" class="sentiment-plot" />
+      <br />
+      <br />
+      Then, I tried smoothing it out to get a better sense of the plot progression:
+      <img src="img/sentiment - smoothed.png" alt="Episode sentiment scores smoothed" title="Episode sentiment scores smoothed" class="sentiment-plot" />
+      <br />
+      <br />
+      The preliminary results don't look too bad! Episode summary from the dataset we used before:
+      <br />
+      <i>We begin with Bart and Lisa heading to school. Bart is bored in class, so he forges a note from Marge to cut 
+      class and goes to see "Boobarama." Meanwhile, Skinner is trying to track him down after becoming suspicious 
+      of the note. Bart narrowly escapes his grasp by stowing away in Quimby's nephew's car. At a Quimby party, 
+      the nephew gets in an argument with a waiter. Bart witnesses the waiter clumsily injuring himself. No one 
+      else sees it, so the waiter claims Quimby's nephew assaulted him. The trial is a media event, but Bart 
+      cannot come forward or Skinner will give him detention. The jury consists of Homer, Skinner, Apu, et cetera. 
+      Homer is an incompetant juror and wants to be sequestered at the city's nicest hotel. After watching 
+      "MacArnagle," Bart decides to come forward to the Judge. Bart's testimony frees the innocent Quimby, but 
+      gets him four months of detention.</i>
+      <br />
+      <br />
+      So in our plot above, the initial low point is Bart lamenting the fact that he must waste a beautiful day
+      at school, then reaps the benefits of playing hooky. Things go sour as Skinner chases him down, then rise as
+      he escapes his grasp and crashes a party of local elites. The low point is the jury nearing a decision to
+      falsely imprison Freddy, but then we end on a high note as the right decision is made and Bart gets away with
+      "only" four months of detention.
+      <br />
+      <br />
+      <a href="https://github.com/allenbkim/simpsons-nlp/blob/master/Simpsons-NLP_Sentiment-Analysis.ipynb" target="_blank">
+        Sentiment analysis source code
+      </a>
+    </div>
     <h2>Moving Forward</h2>
+    <div>
+      As I complete my current NLP course I hope to gain more insights that could further flesh out this text mining
+      exercise. One improvement that can be made to the TF-IDF is the removal of duplicates or too-similar words.
+      For instance, we see results in the top words that repeat such as "meow meow", "meow meow meow", and "meow"
+      in the episode "The Boy Who Knew Too Much". For the sentiment analysis, I would like to plot out more episodes
+      and refine how the smoothing is done, better annotate the high and low points, and map to the six plot types
+      outlined in the aforementioned paper.
+      <br />
+      <br />
+      All in all, this was a fun exercise and great learning experience!
+    </div>
     <h2>Acknowledgements</h2>
+    <div>
+      <a href="https://www.springfieldspringfield.co.uk/" target="_blank">Springfield! Springfield!</a> - Source of Simpsons episode scripts
+      <br />
+      <a href="https://www.pogdesign.co.uk/cat" target="_blank">TV Calendar</a> - Source of Simpsons episode summaries
+      <br />
+      <a href="https://fontmeme.com/simpsons-font/" target="_blank">Font Meme</a> - Generated title text here
+      <br />
+      <a href="https://www.pinterest.com/pin/252201647860991616/" target="_blank">Pinterest</a> - Source of cloud background
+      <br />
+      <a href="https://arxiv.org/pdf/1606.07772.pdf" target="_blank">The emotional arcs of stories are dominated by six basic shapes</a> - Paper that inspired the sentiment analysis of Simpsons scripts
+    </div>
   </body>
 </html>
