@@ -187,21 +187,49 @@
     </div>
     <h2>Episode Similarities</h2>
     <div>
+      Since I now had vector representations of the episodes, another simple thing I could try was comparing them to
+      find the ones most similar to each other with respect to words in the scripts. Two natural similarity measures
+      I tried out were <a href="https://en.wikipedia.org/wiki/Jaccard_index" target="_blank">Jaccard Similarity</a> and
+      <a href="https://en.m.wikipedia.org/wiki/Cosine_similarity" target="_blank">Cosine Similarity</a>.
+      <br />
+      <br />
+      My initial guess was that episodes in the same or nearby seasons would be more similar to each other due to factors
+      like what writers were on the show, characters that were featured, and overall themes/tones of the show. I did
+      see some of that in the results, but was surprised by how far apart (in terms of dates) some of the similar
+      episodes were. One interesting thing to point out is that in the Jaccard Similarities I kept seeing episode 3
+      from season 6; turns out that this is "Another Simpsons Clip Show", which features clips of previous episodes, thus
+      has mostly shared dialog. This is an instance of Jaccard Similarity being a decent measure of plagiarism.
+      <br />
+      <br />
+      I show the top 10 similar episodes by each similarity measure below, and the top 25 can be seen in the source
+      code notebook results. It can be easily updated to show more based on the "top_n" variable.
+      <br />
+      <br />
       <table>
         <tr>
           <th>Rank</th>
           <th>Jaccard Similarity</th>
           <th>Cosine Similarity</th>
+          <th>Comments</th>
         </tr>
         <tr>
           <td>
             1
           </td>
           <td>
-
+            S16 E1: Treehouse of Horror XV
+            <br />
+            <br />
+            S16 E2: All's Fair in Oven War
           </td>
           <td>
-
+            S13 E10: Half-Decent Proposal
+            <br />
+            <br />
+            S15 E14: The Ziff Who Came to Dinner
+          </td>
+          <td>
+            S13 E10 and S15 E14 both prominently feature the insufferable Artie Ziff.
           </td>
         </tr>
         <tr>
@@ -209,10 +237,22 @@
             2
           </td>
           <td>
-
+            S4 E12: Marge vs. the Monorail
+            <br />
+            <br />
+            S9 E11: All Singing, All Dancing
           </td>
           <td>
-            
+            S3 E20: Colonel Homer
+            <br />
+            <br />
+            S19 E16: Papa Don't Leach
+          </td>
+          <td>
+            S9 E11 is a musical clips show, so includes clips from the classic monorail song.
+            <br />
+            <br />
+            S19 E16 brings back Lurleen Lumpkin, who was introduced in the Colonel Homer episode.
           </td>
         </tr>
         <tr>
@@ -220,10 +260,22 @@
             3
           </td>
           <td>
-
+            S1 E9: Life on the Fast Lane
+            <br />
+            <br />
+            S6 E3: Another Simpsons Clip Show
           </td>
           <td>
-            
+            S13 E18: I am Furious Yellow
+            <br />
+            <br />
+            S22 E14: Angry Dad: The Movie
+          </td>
+          <td>
+            Instance of the clips show.
+            <br />
+            <br />
+            S13 E18 and S22 E14 are both about a comic character Angry Dad.
           </td>
         </tr>
         <tr>
@@ -231,10 +283,22 @@
             4
           </td>
           <td>
-
+            S5 E9: The Last Temptation of Homer
+            <br />
+            <br />
+            S6 E3: Another Simpsons Clip Show
           </td>
           <td>
-            
+            S2 E9: Itchy & Scratchy & Marge
+            <br />
+            <br />
+            S7 E18: The Day the Violence Died
+          </td>
+          <td>
+            Instance of the clips show.
+            <br />
+            <br />
+            Both S2 E9 and S7 E18 are about the Itchy & Scratchy Show.
           </td>
         </tr>
         <tr>
@@ -242,10 +306,19 @@
             5
           </td>
           <td>
-
+            S5 E8: Boy-Scoutz 'n the Hood
+            <br />
+            <br />
+            S9 E11: Realty Bites
           </td>
           <td>
-            
+            S2 E21: Three Men and a Comic Book
+            <br />
+            <br />
+            S7 E2: Radioactive Man
+          </td>
+          <td>
+            Both S2 E21 and S7 E2 feature the comic book character Radioactive Man...up and at them!!
           </td>
         </tr>
         <tr>
@@ -253,10 +326,22 @@
             6
           </td>
           <td>
-
+            S10 E5: When You Dish Upon a Star
+            <br />
+            <br />
+            S13 E17: Gump Roast
           </td>
           <td>
-            
+            S6 E15: Homie the Clown
+            <br />
+            <br />
+            S7 E15: Bart the Fink
+          </td>
+          <td>
+            Gump Roast is a clips show that refers back to the time Homer met Alec Baldwin and Kim Basinger.
+            <br />
+            <br />
+            S6 E15 and S7 E15 have plots heavily involving Krusty.
           </td>
         </tr>
         <tr>
@@ -264,10 +349,22 @@
             7
           </td>
           <td>
-
+            S22 E12: Homer the Father
+            <br />
+            <br />
+            S22 E20: Homer Scissorhands
           </td>
           <td>
-            
+            S25 E15: The War of Art
+            <br />
+            <br />
+            S29 E12: Homer is Where the Art Isn't
+          </td>
+          <td>
+            S22 E12 and S22 E20 are modern Homer episodes.
+            <br />
+            <br />
+            S25 E15 and S29 E12 are both about paintings/art.
           </td>
         </tr>
         <tr>
@@ -275,10 +372,19 @@
             8
           </td>
           <td>
-
+            S7 E1: Who Shot Mr. Burns? (Part 2)
+            <br />
+            <br />
+            S7 E10: The Simpsons 138th Episode Spectacular
           </td>
           <td>
-            
+            S13 E12: The Lastest Gun in the West
+            <br />
+            <br />
+            S17 E22: Marge and Homer Turn a Couple Play
+          </td>
+          <td>
+            An instance of a clips show.
           </td>
         </tr>
         <tr>
@@ -286,10 +392,22 @@
             9
           </td>
           <td>
-
+            S4 E15: I Love Lisa
+            <br />
+            <br />
+            S6 E3: Another Simpsons Clip Show
           </td>
           <td>
-            
+            S9 E18: This Little Wiggy
+            <br />
+            <br />
+            S19 E10: E Pluribus Wiggum
+          </td>
+          <td>
+            Instance of a clips show.
+            <br />
+            <br />
+            Wiggum episodes!
           </td>
         </tr>
         <tr>
@@ -297,10 +415,19 @@
             10
           </td>
           <td>
-
+            S23 E13: The Daughter Also Rises
+            <br />
+            <br />
+            S24 E10: A Test Before Trying
           </td>
           <td>
-            
+            S1 E12: Krusty Gets Busted
+            <br />
+            <br />
+            S6 E15: Homie the Clown
+          </td>
+          <td>
+            S1 E12 and S6 E15 prominently feature Krusty.
           </td>
         </tr>
       </table>
@@ -309,5 +436,8 @@
       <a href="https://github.com/allenbkim/simpsons-nlp/blob/master/Simpsons-NLP_Episode-Similarities.ipynb" target="_blank">
       Similarities source code</a>
     </div>
+    <h2>Sentiment Analysis</h2>
+    <h2>Moving Forward</h2>
+    <h2>Acknowledgements</h2>
   </body>
 </html>
